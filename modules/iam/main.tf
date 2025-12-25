@@ -25,7 +25,7 @@ resource "google_service_account" "platform_sa" {
   display_name = "SA for Platform CI/CD"
 }
 
-# Bind the GitHub Repo to the Service Account (The Handshake)
+# Bind the GitHub Repo to the Service Account
 resource "google_service_account_iam_member" "wif_binding" {
   service_account_id = google_service_account.platform_sa.name
   role               = "roles/iam.workloadIdentityUser"
