@@ -29,3 +29,10 @@ resource "google_service_account" "platform_sa" {
   account_id   = "platform-sa"
   display_name = "Platform Automation Service Account"
 }
+
+# Grant the GitHub Repo permission to impersonate the Service Account
+resource "google_service_account_iam_member" "wif_sa_binding" {
+  service_account_id = google_service_account.platform_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.main.name}/attribute.repository/${var.github_repo}"
+}
