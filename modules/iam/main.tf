@@ -36,3 +36,10 @@ resource "google_service_account_iam_member" "wif_sa_binding" {
   role               = "roles/iam.workloadIdentityUser"
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.main.name}/attribute.repository/${var.github_repo}"
 }
+
+# Grant the Service Account permission to manage the Project
+resource "google_project_iam_member" "project_editor" {
+  project = var.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:${google_service_account.platform_sa.email}"
+}
