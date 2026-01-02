@@ -5,7 +5,9 @@ resource "google_iam_workload_identity_pool" "main" {
 }
 
 resource "google_iam_workload_identity_pool_provider" "github" {
-  provider_id               = "github-provider"
+  # FIX 1: Rename 'provider_id' to the correct argument name
+  workload_identity_pool_provider_id = "github-provider"
+
   workload_identity_pool_id = google_iam_workload_identity_pool.main.workload_identity_pool_id
   display_name              = "GitHub Provider"
   description               = "OIDC Provider for GitHub Actions"
@@ -16,7 +18,6 @@ resource "google_iam_workload_identity_pool_provider" "github" {
     "attribute.actor"      = "assertion.actor"
   }
 
-  # THIS LINE USES THE VARIABLE
   attribute_condition = "assertion.repository == '${var.github_repo}'"
 
   oidc {
