@@ -1,9 +1,9 @@
 variable "project_id" {
-  type        = string
   description = "The GCP Project ID"
+  type        = string
 }
 
 variable "github_repo" {
-  description = "The Github reposithiroy in repo fromajt"
+  description = "The GitHub repository in 'org/repo' format"
   type        = string
 }
