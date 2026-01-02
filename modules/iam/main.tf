@@ -5,7 +5,7 @@ resource "google_iam_workload_identity_pool" "main" {
 }
 
 resource "google_iam_workload_identity_pool_provider" "github" {
-  # FIX 1: Rename 'provider_id' to the correct argument name
+  # FIX: Use the correct argument name
   workload_identity_pool_provider_id = "github-provider"
 
   workload_identity_pool_id = google_iam_workload_identity_pool.main.workload_identity_pool_id
