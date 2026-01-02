@@ -23,8 +23,3 @@ resource "google_iam_workload_identity_pool_provider" "github" {
     issuer_uri = "https://token.actions.githubusercontent.com"
   }
 }
-
-# Output the provider name so we can use it later
-output "wif_provider_name" {
-  value = google_iam_workload_identity_pool_provider.github.name
-}
