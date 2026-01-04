@@ -11,17 +11,13 @@
 # - Creates a Workload Identity Pool for external identities
 # - Registers GitHub Actions as an OIDC identity provider
 # - Restricts access to a specific GitHub repository
-# - Creates a service account for automation
+# - Creates a service account for automation for the Github actions
 # - Grants impersonation permissions via WIF
 # - Assigns project-level IAM roles to the service account
-#
-# Security Model:
-# Authentication is attribute-based and repository-scoped, ensuring that only
-# trusted GitHub workflows can assume the service account identity.
-#
+
 # Usage:
 # This file is consumed as part of a reusable Terraform IAM module and is
-# executed when called by an environment configuration (e.g., prod).
+# executed when called by env/prod/main.tf 
 # -----------------------------------------------------------------------------
 
 
