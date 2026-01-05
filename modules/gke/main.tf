@@ -64,14 +64,26 @@ resource "google_container_cluster" "primary" {
 
 # Task 2.3: Custom Node Pool THis is actual node pool WE are attaching node pool the control plane
 resource "google_container_node_pool" "primary_nodes" {
-  name       = "main-pool"
-  project    = var.project_id
-  location   = var.region
-  cluster    = google_container_cluster.primary.name
-  node_count = 2 # 3 nodes requirement
+  name     = "main-pool"
+  project  = var.project_id
+  location = var.region
+  cluster  = google_container_cluster.primary.name
+
+  node_count = 1
 
   node_config {
-    machine_type = "n2-standard-4" # N2-Standard-4 requirement 
+
+    machine_type = "e2-medium"
+
+    # Keeping the requested 30GB disk
+    disk_size_gb = 30
+    disk_type    = "pd-standard" # Changed to standard for lower cost during testing
+
+    /* machine_type = "n2-standard-4" # 4 CPUs total
+
+    # CHANGE: Reduce disk size to 30GB as requested
+    disk_size_gb = 30
+    disk_type    = "pd-ssd" */
 
     # this oauth_scopes is for the nodes to access google apis 
     oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
