@@ -16,7 +16,7 @@
 resource "google_container_cluster" "primary" {
   name     = "omnitrix-cluster"
   project  = var.project_id
-  location = var.region
+  location = "us-central1-a"
 
   # Task 2.3: Minimum version 1.34+ (Standard Channel)
   min_master_version = "1.34"
@@ -66,7 +66,7 @@ resource "google_container_cluster" "primary" {
 resource "google_container_node_pool" "primary_nodes" {
   name     = "main-pool"
   project  = var.project_id
-  location = var.region
+  location = "us-central1-a"
   cluster  = google_container_cluster.primary.name
 
   node_count = 1
