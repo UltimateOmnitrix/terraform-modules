@@ -73,17 +73,16 @@ resource "google_container_node_pool" "primary_nodes" {
 
   node_config {
 
-    machine_type = "e2-medium"
+    # machine_type = "e2-medium"
 
-    # Keeping the requested 30GB disk
-    disk_size_gb = 30
-    disk_type    = "pd-standard" # Changed to standard for lower cost during testing
+    # # Keeping the requested 30GB disk
+    # disk_size_gb = 30
+    # disk_type    = "pd-standard" # Changed to standard for lower cost during testing
 
-    /* machine_type = "n2-standard-4" # 4 CPUs total
+    machine_type = "n2-standard-4" # 4 CPUs total
 
-    # CHANGE: Reduce disk size to 30GB as requested
-    disk_size_gb = 30
-    disk_type    = "pd-ssd" */
+    disk_size_gb = 120
+    disk_type    = "pd-standard"
 
     # this oauth_scopes is for the nodes to access google apis 
     oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
