@@ -25,6 +25,12 @@ resource "google_container_cluster" "primary" {
   network    = var.network_name
   subnetwork = var.subnet_name
 
+  ## ADDDED THIS IN DAy-04 task when the crossplane came up 
+  # ✅ Enable the Identity Pool (The "USB Port")
+  workload_identity_config {
+    workload_pool = "${var.project_id}.svc.id.goog"
+  }
+
   # Secondary Ranges for IP Aliasing as we are using VPC-native
   # First secondary is for the pods 
   # Second secondary is for the services which are fixed internal IP's 
@@ -83,6 +89,12 @@ resource "google_container_node_pool" "primary_nodes" {
 
     disk_size_gb = 120
     disk_type    = "pd-standard"
+
+    # ✅ Enable the Node to use the Identity Pool
+    ## DAY-04 Task 
+    workload_metadata_config {
+      mode = "GKE_METADATA"
+    }
 
     # this oauth_scopes is for the nodes to access google apis 
     oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
