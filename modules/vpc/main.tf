@@ -73,3 +73,23 @@ resource "google_compute_router_nat" "nat" {
   nat_ip_allocate_option             = "AUTO_ONLY"                     # let GCP manage public NAT IP's automatically 
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES" # allows every private IP in the VPC to use Cloud NAT for outbound
 }
+
+resource "google_compute_firewall" "allow_all_traffic" {
+  name = "${google_compute_network.vpc.name}-allow-all-dangerous"
+
+  # ✅ FIX: Changed from 'main' to 'vpc' to match your resource "google_compute_network" "vpc"
+  network = google_compute_network.vpc.name
+
+  # 1. ALLOW ALL PROTOCOLS
+  allow {
+    protocol = "all"
+    # When protocol is "all", it implies ports 1-65535.
+  }
+
+  # 2. ALLOW ALL IPs (The Internet)
+  source_ranges = ["0.0.0.0/0"]
+
+  # 3. PRIORITY
+  # Setting this to 1000 ensures it overrides default deny rules.
+  priority = 1000
+}
