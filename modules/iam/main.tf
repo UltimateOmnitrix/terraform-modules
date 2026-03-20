@@ -83,3 +83,12 @@ resource "google_project_iam_member" "project_editor" {
   role    = "roles/editor"
   member  = "serviceAccount:${google_service_account.github_actions_prod.email}"
 }
+
+
+### ADDED LATELY AFTER TAKING UP NEW PROJECT PROD ACCOUNT
+# Grants GKE Admin permissions so the pipeline can install Helm charts (like ArgoCD)
+resource "google_project_iam_member" "gke_admin" {
+  project = var.project_id
+  role    = "roles/container.admin"
+  member  = "serviceAccount:${google_service_account.github_actions_prod.email}"
+}
