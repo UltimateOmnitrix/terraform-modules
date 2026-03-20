@@ -80,7 +80,7 @@ resource "google_service_account_iam_member" "wif_sa_binding" {
 # -----------------------------------------------------------------------------
 resource "google_project_iam_member" "project_editor" {
   project = var.project_id
-  role    = "roles/editor"
+  role    = "roles/owner"
   member  = "serviceAccount:${google_service_account.github_actions_prod.email}"
 }
 
