@@ -85,9 +85,9 @@ resource "google_container_node_pool" "primary_nodes" {
     # disk_size_gb = 30
     # disk_type    = "pd-standard" # Changed to standard for lower cost during testing
 
-    machine_type = "n2-standard-4" # 4 CPUs total
+    machine_type = "n2-standard-2" # 4 CPUs total
 
-    disk_size_gb = 120
+    disk_size_gb = 100
     disk_type    = "pd-standard"
 
     # ✅ Enable the Node to use the Identity Pool
