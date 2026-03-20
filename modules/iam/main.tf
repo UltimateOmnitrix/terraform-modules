@@ -59,9 +59,9 @@ resource "google_iam_workload_identity_pool_provider" "github" {
 # Creates a service account used by CI/CD pipelines after
 # successful Workload Identity Federation authentication.
 # -----------------------------------------------------------------------------
-resource "google_service_account" "platform_sa" {
-  account_id   = "platform-sa"
-  display_name = "Platform Automation Service Account"
+resource "google_service_account" "github_actions_prod" {
+  account_id   = "githubactions-prodaccount"
+  display_name = "GithubActions-ProdAccount"
 }
 
 # -----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ resource "google_service_account" "platform_sa" {
 # using Workload Identity Federation (no static keys).
 # -----------------------------------------------------------------------------
 resource "google_service_account_iam_member" "wif_sa_binding" {
-  service_account_id = google_service_account.platform_sa.name
+  service_account_id = google_service_account.github_actions_prod.name
   role               = "roles/iam.workloadIdentityUser"
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.main.name}/attribute.repository/${var.github_repo}"
 }
@@ -81,5 +81,5 @@ resource "google_service_account_iam_member" "wif_sa_binding" {
 resource "google_project_iam_member" "project_editor" {
   project = var.project_id
   role    = "roles/editor"
-  member  = "serviceAccount:${google_service_account.platform_sa.email}"
+  member  = "serviceAccount:${google_service_account.github_actions_prod.email}"
 }

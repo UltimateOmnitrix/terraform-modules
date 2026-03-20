@@ -4,6 +4,6 @@ output "wif_provider_name" {
 }
 
 output "service_account_email" {
-  value       = google_service_account.platform_sa.email
+  value       = google_service_account.github_actions_prod.email
   description = "The email of the automation service account"
 }
